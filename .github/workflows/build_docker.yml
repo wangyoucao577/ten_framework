@@ -18,6 +18,8 @@ jobs:
         include:
           - image_name: "ubuntu2204"
             workdir: "tools/docker_for_building/ubuntu/22.04"
+          - image_name: "ubuntu1804"
+            workdir: "tools/docker_for_building/ubuntu/18.04"
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
