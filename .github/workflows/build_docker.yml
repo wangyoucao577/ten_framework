@@ -1,0 +1,35 @@
+name: Build - docker
+
+on:
+  push:
+    branches:
+    - '**'
+    paths:
+    - 'tools/docker_for_building/**'
+
+env:
+  IMAGE_NAME: building
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - tag_prefix: "ubuntu2204"
+            workdir: "tools/docker_for_building/ubuntu/22.04"
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - id: pre-step
+      shell: bash
+      run: echo "image-tag=${{ matrix.tag_prefix }}-$(date -u +"%Y%m%d")-$(echo ${GITHUB_SHA} | cut -c 1-7)" >> $GITHUB_OUTPUT
+    - name: Build & Publish to Github Container Registry
+      uses: elgohr/Publish-Docker-Github-Action@v5
+      with:
+        name: ${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: ghcr.io
+        workdir: ${{ matrix.workdir }}
+        tags: "${{ github.ref == 'refs/heads/main' && 'latest,' || '' }}${{ steps.pre-step.outputs.image-tag }}"
