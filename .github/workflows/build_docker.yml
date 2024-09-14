@@ -8,7 +8,7 @@ on:
     - 'tools/docker_for_building/**'
 
 env:
-  IMAGE_NAME_PREFIX: building_
+  IMAGE_NAME_PREFIX: ten_building_
 
 jobs:
   build:
@@ -21,9 +21,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    # - id: pre-step
-    #   shell: bash
-    #   run: echo "image-tag=$(date -u +"%Y%m%d")-$(echo ${GITHUB_SHA} | cut -c 1-7)" >> $GITHUB_OUTPUT
     - name: Build & Publish to Github Container Registry
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
