@@ -23,7 +23,6 @@ RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommend
   autoconf \
   libtool \
   uuid-dev \
-  g++-multilib \
   libmsgpack-dev \
   libmysqlclient-dev \
   libmysqlcppconn-dev \
