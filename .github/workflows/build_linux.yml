@@ -1,0 +1,55 @@
+name: Build - linux
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
+    paths-ignore:
+      - 'tools/**'
+      - 'docs/**'
+      - '.vscode/**'
+      - '.github/configs/**'
+      - '**.md'
+  pull_request:
+
+env:
+  BUILDING_IMAGE_TAG: feature_ci
+
+jobs:
+  ubuntu2204:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        is_clang: [ true, false ]
+        build_type: [ debug, release ]
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:${{ env.BUILDING_IMAGE_TAG }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+      - name: Build
+        run: |
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=${{ matrix.is_clang }}
+          tgn build linux x64 ${{ matrix.build_type }}
+          tree out
+
+  ubuntu1804:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [ release ]
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:${{ env.BUILDING_IMAGE_TAG }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+      - name: Build
+        run: |
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
+          tgn build linux x64 ${{ matrix.build_type }}
+          tree out
