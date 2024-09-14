@@ -21,7 +21,7 @@ jobs:
         is_clang: [ true, false ]
         build_type: [ debug, release ]
     container:
-      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature_ci
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,7 +39,7 @@ jobs:
       matrix:
         build_type: [ release ]
     container:
-      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:feature_ci
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:feature-ci
     steps:
       - uses: actions/checkout@v4
         with:
