@@ -14,11 +14,10 @@ on:
   pull_request:
 
 jobs:
-  build:
+  build-gcc:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        is_clang: [false]
         build_type: [debug, release]
     container:
       image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
@@ -30,6 +29,7 @@ jobs:
       - name: Build
         run: |
           export PATH=$(pwd)/core/ten_gn:$PATH
-          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=${{ matrix.is_clang }}
+          cargo install --force cbindgen
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
