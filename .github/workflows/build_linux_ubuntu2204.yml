@@ -35,7 +35,7 @@ jobs:
           rustup default nightly
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
-          tree out
+          tree -I 'gen|obj' out
 
       - name: Upload tman
         uses: actions/upload-artifact@v4
@@ -75,7 +75,7 @@ jobs:
           rustup default nightly
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=true log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
-          tree out
+          tree -I 'gen|obj' out
 
       - name: Upload tman
         uses: actions/upload-artifact@v4
