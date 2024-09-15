@@ -101,7 +101,8 @@ RUN curl -OL https://go.dev/dl/go1.22.3.linux-amd64.tar.gz && \
 # Install cargo for rust.
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
   /root/.cargo/bin/rustup install nightly && \
-  /root/.cargo/bin/rustup default nightly
+  /root/.cargo/bin/rustup default nightly && \
+  /root/.cargo/bin/cargo install --force cbindgen
 
 ENV PATH="/root/.cargo/bin:$PATH"
 
