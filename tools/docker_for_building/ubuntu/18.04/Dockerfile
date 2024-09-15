@@ -82,7 +82,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
   /root/.cargo/bin/rustup install nightly && \
   /root/.cargo/bin/rustup default nightly
 
-ENV PATH="$HOME/.cargo/bin:$PATH"
+ENV PATH="/root/.cargo/bin:$PATH"
 
 # =======================================
 # Installing Python3.10 from source code.

@@ -102,7 +102,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && \
   /root/.cargo/bin/rustup install nightly && \
   /root/.cargo/bin/rustup default nightly
 
-ENV PATH="$HOME/.cargo/bin:$PATH"
+ENV PATH="/root/.cargo/bin:$PATH"
 
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
