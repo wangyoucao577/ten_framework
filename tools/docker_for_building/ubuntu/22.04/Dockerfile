@@ -55,6 +55,7 @@ RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommend
 
 RUN pip3 install --upgrade setuptools pip && \
   pip3 install requests oss2 && \
+  pip3 install --use-pep517 python-dotenv jinja2 && \
   ln -sf /usr/bin/python3.10-config /usr/bin/python3-config && \
   ln -sf /usr/bin/python3 /usr/bin/python
 

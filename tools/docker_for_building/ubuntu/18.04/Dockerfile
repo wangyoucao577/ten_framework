@@ -100,7 +100,8 @@ RUN ln -sf /usr/bin/python3.10-config /usr/bin/python3-config && \
   cp /usr/lib/python3/dist-packages/lsb_release.py /usr/bin && \
   pip3 install --upgrade setuptools && \
   pip3 install --upgrade pip && \
-  pip3 install requests oss2
+  pip3 install requests oss2 && \
+  pip3 install --use-pep517 python-dotenv jinja2
 
 # Cleanup
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
