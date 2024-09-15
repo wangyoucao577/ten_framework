@@ -1,0 +1,35 @@
+name: Build - linux ubuntu2204
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "**"
+    paths-ignore:
+      - "tools/**"
+      - "docs/**"
+      - ".vscode/**"
+      - ".github/configs/**"
+      - "**.md"
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        is_clang: [false]
+        build_type: [debug, release]
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
+          submodules: "true"
+      - name: Build
+        run: |
+          export PATH=$(pwd)/core/ten_gn:$PATH
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=${{ matrix.is_clang }}
+          tgn build linux x64 ${{ matrix.build_type }}
+          tree out
