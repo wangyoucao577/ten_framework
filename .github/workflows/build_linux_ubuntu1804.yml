@@ -30,7 +30,8 @@ jobs:
           submodules: "true"
       - name: Build
         run: |
-          export PATH=$(pwd)/core/ten_gn:$PATH
+          export PATH=$(pwd)/core/ten_gn:/root/.cargo/bin/:$PATH
+          echo $PATH
           cargo install --force cbindgen
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
           tgn build linux x64 ${{ matrix.build_type }}
