@@ -9,6 +9,7 @@ on:
       - "tools/**"
       - "docs/**"
       - ".vscode/**"
+      - ".devcontainer/**"
       - ".github/configs/**"
       - "**.md"
   pull_request:
