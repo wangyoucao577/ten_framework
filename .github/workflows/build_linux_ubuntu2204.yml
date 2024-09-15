@@ -35,3 +35,25 @@ jobs:
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
+
+  build-clang:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [debug, release]
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: "0"
+          submodules: "true"
+      - name: Build
+        run: |
+          export PATH=$(pwd)/core/ten_gn:$PATH
+          echo $PATH
+          go env -w GOFLAGS="-buildvcs=false"
+          rustup default nightly
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=true log_level=1 enable_serialized_actions=true ten_enable_test=false
+          tgn build linux x64 ${{ matrix.build_type }}
+          tree out
