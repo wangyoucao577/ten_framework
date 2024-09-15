@@ -65,32 +65,6 @@ RUN apt-get purge -y gcc gcc-7 g++-7 && \
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-13 100 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-13 100
 
-# =======================
-# Installing clang18
-
-RUN apt-get purge -y llvm-6.0 clang-6.0 && \
-wget --no-check-certificate -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - && \
-add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/   llvm-toolchain-$(lsb_release -cs)-18  main" && \
-apt-get update && \
-apt-get install -y clang-18 \
-clang++-18 \
-clang-tools-18 \
-clang-tidy-18 \
-clang-format-18 \
-libc++-18-dev \
-libc++1-18 \
-libc++abi-18-dev \
-libc++abi1-18 \
-clangd-18 && \
-update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100 && \
-update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-18 100 && \
-update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-18 100 && \
-update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-18 100 && \
-update-alternatives --install /usr/bin/clang-check clang-check /usr/bin/clang-check-18 100 && \
-update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 100 && \
-ln -sf /usr/lib/llvm-18/lib/x86_64-pc-linux-gnu/libc++.a /usr/lib/x86_64-linux-gnu/libc++.a && \
-ln -sf $(clang -print-file-name=libclang_rt.asan.so) $(dirname $(clang -print-file-name=libclang_rt.asan.so))/libclang_rt.asan-x86_64.so
-
 # ==============
 # Install golang
 
