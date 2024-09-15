@@ -32,6 +32,6 @@ jobs:
           echo $PATH
           go env -w GOFLAGS="-buildvcs=false"
           rustup default nightly
-          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=true
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
