@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [release]
+        build_type: [debug, release]
     container:
       image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
     steps:
@@ -71,7 +71,7 @@ jobs:
           export PATH=$(pwd)/core/ten_gn:$PATH
           echo $PATH
           go env -w GOFLAGS="-buildvcs=false"
-          # go1.20.12 download
+          go1.20.12 download
           rustup default nightly
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=true log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
