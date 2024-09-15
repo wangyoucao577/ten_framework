@@ -35,21 +35,21 @@ jobs:
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
 
-  # ubuntu1804:
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       build_type: [ release ]
-  #   container:
-  #     image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:feature-ci
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: '0'
-  #         submodules: 'true'
-  #     - name: Build
-  #       run: |
-  #         export PATH=$(pwd)/core/ten_gn:$PATH
-  #         tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
-  #         tgn build linux x64 ${{ matrix.build_type }}
-  #         tree out
+  ubuntu1804:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [ release ]
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:feature-ci
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: '0'
+          submodules: 'true'
+      - name: Build
+        run: |
+          export PATH=$(pwd)/core/ten_gn:$PATH
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
+          tgn build linux x64 ${{ matrix.build_type }}
+          tree out
