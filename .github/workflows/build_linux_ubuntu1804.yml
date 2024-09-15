@@ -40,7 +40,7 @@ jobs:
           tree -I 'gen|obj' out
 
       - name: Upload ten_packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ten_packages-ubuntu1804-gcc-${{ matrix.build_type }}
           path: |
