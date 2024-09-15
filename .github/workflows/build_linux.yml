@@ -29,6 +29,7 @@ jobs:
           submodules: 'true'
       - name: Build
         run: |
+          export PATH=$(pwd)/core/ten_gn:$PATH
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=${{ matrix.is_clang }}
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
@@ -47,6 +48,7 @@ jobs:
           submodules: 'true'
       - name: Build
         run: |
+          export PATH=$(pwd)/core/ten_gn:$PATH
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
