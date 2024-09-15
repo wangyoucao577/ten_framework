@@ -3,9 +3,10 @@ FROM ubuntu:18.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get clean && \
-  add-apt-repository ppa:git-core/ppa && \
   apt-get update && \
   apt-get install -y --no-install-recommends apt-utils software-properties-common && \
+  add-apt-repository ppa:git-core/ppa && \
+  apt-get update && \
   apt-get install -y --no-install-recommends curl \
   lsb-release \
   iwyu \
