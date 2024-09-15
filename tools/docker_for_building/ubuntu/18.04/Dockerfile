@@ -14,6 +14,7 @@ RUN apt-get clean && \
   p7zip-full \
   p7zip-rar \
   git \
+  tree \
   libasan5 \
   autoconf \
   libtool \
