@@ -57,7 +57,7 @@ RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/nul
 #
 # NOTE: install gcc after cmake, while cmake will auto-install gcc7.
 # Install gcc13 as default.
-RUN apt-get purge -y gcc gcc-7 g++-7 && \
+RUN apt-get purge -y gcc gcc-7 g++-7 llvm-6.0 clang-6.0 && \
   apt-add-repository -y ppa:ubuntu-toolchain-r/test && \
   apt-get update && \
   apt-get install -y --no-install-recommends gcc-13 g++-13 && \
