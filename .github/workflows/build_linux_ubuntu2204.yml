@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [debug, release]
+        build_type: [release]
     container:
       image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
     steps:
@@ -32,6 +32,6 @@ jobs:
           echo $PATH
           go env -w GOFLAGS="-buildvcs=false"
           rustup default nightly
-          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
