@@ -28,10 +28,9 @@ jobs:
           submodules: "true"
       - name: Build
         run: |
-          export PATH=$(pwd)/core/ten_gn:$(pwd)/.cargo/bin/:$PATH
+          export PATH=$(pwd)/core/ten_gn:$PATH
           echo $PATH
           rustup default nightly
-          cargo install --force cbindgen
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
