@@ -30,7 +30,7 @@ jobs:
           submodules: "true"
       - name: Build
         run: |
-          export PATH=$(pwd)/core/ten_gn:/root/.cargo/bin/:$PATH
+          export PATH=$(pwd)/core/ten_gn:$(pwd)/.cargo/bin/:$PATH
           echo $PATH
           rustup default nightly
           cargo install --force cbindgen
