@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        build_type: [release]
+        build_type: [debug, release]
     container:
       image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu2204:feature-ci
     steps:
