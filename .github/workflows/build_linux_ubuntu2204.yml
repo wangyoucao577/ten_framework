@@ -36,6 +36,24 @@ jobs:
           tgn build linux x64 ${{ matrix.build_type }}
           tree out
 
+      - name: Upload tman
+        uses: actions/upload-artifact@v4
+        with:
+          name: tman-ubuntu2204-${{ matrix.build_type }}
+          path: out/linux/x64/ten_manager/bin/tman
+          overwrite: true
+      - name: Upload ten_packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: ten_packages-ubuntu2204-gcc-${{ matrix.build_type }}
+          path: |
+            out/linux/x64/ten_packages/system
+            out/linux/x64/ten_packages/extension_group
+            out/linux/x64/ten_packages/extension/default_extension_cpp
+            out/linux/x64/ten_packages/extension/default_extension_go
+            out/linux/x64/ten_packages/extension/default_extension_python
+            out/linux/x64/ten_packages/extension/py_init_extension_cpp
+
   build-clang:
     runs-on: ubuntu-latest
     strategy:
