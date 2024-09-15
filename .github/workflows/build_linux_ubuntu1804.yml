@@ -24,7 +24,7 @@ jobs:
     container:
       image: ghcr.io/${{ github.repository_owner }}/ten_building_ubuntu1804:feature-ci
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: "0"
           submodules: "true"
