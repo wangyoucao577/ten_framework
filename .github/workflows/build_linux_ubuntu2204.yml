@@ -71,6 +71,7 @@ jobs:
           export PATH=$(pwd)/core/ten_gn:$PATH
           echo $PATH
           go env -w GOFLAGS="-buildvcs=false"
+          go env -w GOPATH=/root/go
           rustup default nightly
           tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=true log_level=1 enable_serialized_actions=true ten_enable_test=false
           tgn build linux x64 ${{ matrix.build_type }}
