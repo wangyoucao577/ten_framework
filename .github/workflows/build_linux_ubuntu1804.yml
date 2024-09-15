@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-gcc:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
     strategy:
@@ -35,6 +35,18 @@ jobs:
           echo $PATH
           go env -w GOFLAGS="-buildvcs=false"
           rustup default nightly
-          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false
+          tgn gen linux x64 ${{ matrix.build_type }} -- is_clang=false log_level=1 enable_serialized_actions=true ten_enable_test=false ten_enable_package_manager=false
           tgn build linux x64 ${{ matrix.build_type }}
           tree -I 'gen|obj' out
+
+      - name: Upload ten_packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: ten_packages-ubuntu1804-gcc-${{ matrix.build_type }}
+          path: |
+            out/linux/x64/ten_packages/system
+            out/linux/x64/ten_packages/extension_group
+            out/linux/x64/ten_packages/extension/default_extension_cpp
+            out/linux/x64/ten_packages/extension/default_extension_go
+            out/linux/x64/ten_packages/extension/default_extension_python
+            out/linux/x64/ten_packages/extension/py_init_extension_cpp
