@@ -60,7 +60,11 @@ RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VER
     ./configure --enable-optimizations --enable-loadable-sqlite-extensions --disable-test-modules --enable-shared --with-lto --with-computed-gotos --with-system-ffi && \
     make -j && \
     make altinstall && \
-    rm -rf ./Python-${PYTHON_VERSION}*
+    rm -rf ./Python-${PYTHON_VERSION}* && \
+    ln -sf /usr/bin/python3.12-config /usr/bin/python3-config && \
+    ln -sf /usr/bin/python3.12 /usr/bin/python3 && \
+    ln -sf /usr/bin/python3.12 /usr/bin/python && \
+    ln -sf /usr/bin/pip3.12 /usr/bin/pip3
 
 RUN pip3 install --upgrade setuptools pip && \
   pip3 install requests oss2 && \
