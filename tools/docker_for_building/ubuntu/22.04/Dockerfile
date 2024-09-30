@@ -48,20 +48,23 @@ RUN apt-get clean && apt-get update && apt-get install -y --no-install-recommend
   libreadline-dev \
   libffi-dev \
   libunwind-dev \
-  libasound2 \
-  python3 \
-  python3-dev \
-  python3-pip \
-  python3-venv
+  libasound2
 
 # =======================================
 # Installing Python deps
 
+# install python3.12 from source
+ENV PYTHON_VERSION=3.12.6
+RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz && \
+    tar -xvf Python-${PYTHON_VERSION}.tgz && cd Python-${PYTHON_VERSION} && \
+    ./configure --enable-optimizations --enable-loadable-sqlite-extensions --disable-test-modules --enable-shared --with-lto --with-computed-gotos --with-system-ffi && \
+    make -j && \
+    make altinstall && \
+    rm -rf ./Python-${PYTHON_VERSION}*
+
 RUN pip3 install --upgrade setuptools pip && \
   pip3 install requests oss2 && \
-  pip3 install --use-pep517 python-dotenv jinja2 && \
-  ln -sf /usr/bin/python3.10-config /usr/bin/python3-config && \
-  ln -sf /usr/bin/python3 /usr/bin/python
+  pip3 install --use-pep517 python-dotenv jinja2
 
 # =======================================
 # Installing clang18
