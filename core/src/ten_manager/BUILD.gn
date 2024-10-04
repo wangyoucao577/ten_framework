@@ -13,7 +13,7 @@ declare_args() {
 }
 
 if (ten_enable_package_manager) {
-  if (is_linux || is_win || (is_mac && target_cpu == "x64")) {
+  if ((is_linux && target_cpu == "x64") || is_win || (is_mac && target_cpu == "x64")) {
     rust_test("tman_test") {
       project_path = "//core/src/ten_manager"
 

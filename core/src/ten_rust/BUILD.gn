@@ -13,7 +13,7 @@ copy("ten_rust_test_data") {
 }
 
 if (enable_ten_rust) {
-  if (is_linux || is_win || (is_mac && target_cpu == "x64")) {
+  if ((is_linux && target_cpu == "x64") || is_win || (is_mac && target_cpu == "x64")) {
     rust_test("ten_rust_test") {
       project_path = "//core/src/ten_rust"
       integration_test_output_name = "integration_test"
@@ -87,7 +87,7 @@ group("ten_rust") {
   if (enable_ten_rust) {
     public_deps += [ ":ten_rust_binding" ]
 
-    if (is_linux || is_win || (is_mac && target_cpu == "x64")) {
+    if ((is_linux && target_cpu == "x64") || is_win || (is_mac && target_cpu == "x64")) {
       deps += [ ":ten_rust_test" ]
     }
   }
